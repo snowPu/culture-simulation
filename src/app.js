@@ -1,13 +1,17 @@
-class Hello {
-  constructor(name) {
-    this.name = name
+import P5 from 'p5'
+
+const sketch = (p) => {
+// setup
+  p.setup = () => {
+    p.createCanvas(640, 380)
   }
 
-  hi() {
-    alert(`let's start p5!! ${this.name}`)
+// draw
+  p.draw = () => {
+    p.background(51)
+    p.fill(128)
+    p.ellipse(p.width/2, p.height/2, 120, 120)
   }
 }
 
-const palm = new Hello('palm')
-
-palm.hi()
+new P5(sketch)

@@ -15,5 +15,8 @@
     "babel-preset-env": "^1.6.1",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.9.7"
+  },
+  "dependencies": {
+    "p5": "^0.5.16"
   }
 }
