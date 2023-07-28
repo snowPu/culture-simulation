@@ -1,22 +1,32 @@
 {
-  "name": "p5-with-webpack-starter",
+  "name": "culture-simulation",
   "version": "1.0.0",
-  "description": "p5 with webpack + babel",
-  "main": "index.js",
+  "description": "--- Creative coding is fun!!",
+  "main": "webpack.config.js",
   "scripts": {
-    "start": "./node_modules/.bin/webpack-dev-server --inline",
-    "build": "./node_modules/.bin/webpack -p"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack serve --open"
   },
-  "author": "skmtpalm",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/snowPu/culture-simulation.git"
+  },
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/snowPu/culture-simulation/issues"
+  },
+  "homepage": "https://github.com/snowPu/culture-simulation#readme",
   "devDependencies": {
-    "babel-core": "^6.26.0",
-    "babel-loader": "^7.1.2",
-    "babel-preset-env": "^1.6.1",
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7"
+    "@types/p5": "^1.6.2",
+    "ts-loader": "^9.4.4",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
   },
   "dependencies": {
-    "p5": "^0.5.16"
+    "p5": "^1.7.0"
   }
 }
