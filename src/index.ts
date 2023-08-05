@@ -7,6 +7,7 @@ export const sketch = (p: p5) => {
     let bacteria: Bacterium[] = []
 
     p.setup = () => {
+        console.log("Hi this is Nils")
         p.createCanvas(canvasSize[0], canvasSize[1]);
         bacteria.push(ecoli(p, p.createVector(p.width / 2, p.height / 2)))
     }
