@@ -6,8 +6,8 @@ export class Bacterium {
     motility: number
     metabolicPathways: MetabolicPathway[]
     // splits per time unit
-    growthRate: number
     shape: Shape
+    splitAt: number
     location: p5.Vector
     velocity: p5.Vector
     rotation: number
@@ -16,14 +16,14 @@ export class Bacterium {
         p: p5,
         motility: number,
         metabolicPathways: MetabolicPathway[],
-        growthRate: number,
+        splitAt: number,
         shape: Shape,
         location: p5.Vector
     ) {
         this.p = p
         this.motility = motility
         this.metabolicPathways = metabolicPathways
-        this.growthRate = growthRate
+        this.splitAt = splitAt
         this.shape = shape
         this.location = location
         this.velocity = p.createVector(0, 0)
@@ -36,10 +36,10 @@ export class Bacterium {
             this.p,
             this.motility,
             this.metabolicPathways,
-            this.growthRate,
+            this.splitAt,
             this.shape,
             this.p.createVector(this.location.x + step, this.location.y + step),
-        )
+            )
     }
 
     public updateVelocity() {
@@ -118,7 +118,7 @@ export const ecoli = (p: p5, location: p5.Vector) => new Bacterium(
     p,
     10,
     [{ input: ['Glucose', 'Oxygen'], output: ['CarbonDiOxide', 'Water'] }],
-    5,
+    300,
     new Oval(p, p.createVector(7, 5)),
     location,
 )
