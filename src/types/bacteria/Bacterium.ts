@@ -1,6 +1,6 @@
 import * as p5 from 'p5';
-import { Oval, Shape } from './Shape';
-import { coolPalette } from '../constants/colors';
+import { Oval, Shape } from '../Shape';
+import { coolPalette } from '../../constants/colors';
 
 export class Bacterium {
     p: p5
@@ -13,7 +13,9 @@ export class Bacterium {
     location: p5.Vector
     velocity: p5.Vector
     rotation: number
+    color: p5.Color
     age: number
+    lifeExpectancy: number
 
     constructor(
         p: p5,
@@ -22,7 +24,9 @@ export class Bacterium {
         splitAt: number,
         consumeAt: number,
         shape: Shape,
-        location: p5.Vector
+        location: p5.Vector,
+        color: p5.Color,
+        lifeExpectancy: number
     ) {
         this.p = p
         this.motility = motility
@@ -33,7 +37,9 @@ export class Bacterium {
         this.location = location
         this.velocity = p.createVector(0, 0)
         this.rotation = 0
+        this.color = color
         this.age = 0
+        this.lifeExpectancy = lifeExpectancy
     }
 
     public mitose(): Bacterium {
@@ -46,6 +52,8 @@ export class Bacterium {
             this.consumeAt,
             this.shape,
             this.p.createVector(this.location.x + step, this.location.y + step),
+            this.color,
+            this.lifeExpectancy,
             )
     }
 
@@ -119,29 +127,11 @@ export class Bacterium {
         this.age += 1
         this.p.push()
         this.p.noStroke()
-        this.p.fill(coolPalette.midnightBlue)
+        this.color.setAlpha((1.0 - this.age / this.lifeExpectancy) * 255)
+        this.p.fill(this.color)
         this.p.translate(this.location.x, this.location.y)
         this.p.rotate(this.rotation)
         this.shape.draw()
         this.p.pop()
     }
 }
-
-export const ecoli = (p: p5, location: p5.Vector) => new Bacterium(
-    p,
-    0.9,
-    {
-        input: {
-            'Glucose': 1,
-            'Oxygen': 6,
-        },
-        output: {
-            'CO2': 6,
-            'Water': 6,
-        }
-    },
-    300,
-    200,
-    new Oval(p, p.createVector(7, 5)),
-    location,
-)

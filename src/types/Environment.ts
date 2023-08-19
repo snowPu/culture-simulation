@@ -1,5 +1,5 @@
 import * as p5 from 'p5';
-import { Bacterium } from './Bacterium';
+import { Bacterium } from './bacteria/Bacterium';
 import { coolPalette, statsColors } from '../constants/colors';
 
 
@@ -68,7 +68,17 @@ export class Environment {
         this.bacteria.forEach(bacterium => bacterium.move())
         this.bacteria.forEach(bacterium => bacterium.updateVelocity())
 
+        let indices: number[] = []
         let idx: number = 0
+        for (const bacterium of this.bacteria) {
+            if (bacterium.age >= bacterium.lifeExpectancy) {
+                indices.push(idx)
+            }
+            idx += 1
+        }
+        indices.reverse().forEach(index => this.removeBacterium(index))
+        indices = []
+        idx = 0
         for (const bacterium of this.bacteria) {
             if (bacterium.consume()) {
                 try {
@@ -87,15 +97,14 @@ export class Environment {
                 } catch(error) {
                     if (error instanceof NutrientLowException) {
                         console.log(error)
-                        break
+                        indices.push(idx)
                     }
                 }
             }
             idx += 1
         }
-        if (idx < this.bacteria.length) {
-            this.removeBacterium(idx)
-        } else if (this.bacteria.length < 500) {
+        indices.reverse().forEach(index => this.removeBacterium(index))
+        if (this.bacteria.length < 500) {
             const newBacteria: Bacterium[] = []
             for (const bacterium of this.bacteria) {
               if (this.p.frameCount % bacterium.splitAt == 0 ) {
@@ -103,7 +112,7 @@ export class Environment {
               }
             }
             this.addBacteria(newBacteria)
-          }
+        }
     }
 }
 
