@@ -1,0 +1,28 @@
+.stats {
+    position: fixed;
+    left: 900px;
+    top: 50px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+}
+
+.stats-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+    text-align: center;
+    
+    .label {
+        font-size: 35pt;
+        font-weight: bold;
+    }
+
+    .count {
+        font-size: 40pt;
+    }
+}
