@@ -10,6 +10,14 @@ module.exports = {
                 use: 'ts-loader',
                 exclude: /node_modules/,
             },
+            {
+                test: /\.scss$/,
+                use: [
+                    'style-loader', // Inject CSS into the DOM
+                    'css-loader',   // Convert CSS into CommonJS
+                    'sass-loader',  // Compile Sass to CSS
+                ],
+            },
         ],
     },
     resolve: {

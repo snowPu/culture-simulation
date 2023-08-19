@@ -1,33 +1,39 @@
 import * as p5 from 'p5';
 import { Oval, Shape } from './Shape';
+import { coolPalette } from '../constants/colors';
 
 export class Bacterium {
     p: p5
     motility: number
-    metabolicPathways: MetabolicPathway[]
+    metabolicPathway: MetabolicPathway
     // splits per time unit
     shape: Shape
     splitAt: number
+    consumeAt: number
     location: p5.Vector
     velocity: p5.Vector
     rotation: number
+    age: number
 
     constructor(
         p: p5,
-        motility: number,
-        metabolicPathways: MetabolicPathway[],
+        motility: number,  // 0-1
+        metabolicPathway: MetabolicPathway,
         splitAt: number,
+        consumeAt: number,
         shape: Shape,
         location: p5.Vector
     ) {
         this.p = p
         this.motility = motility
-        this.metabolicPathways = metabolicPathways
+        this.metabolicPathway = metabolicPathway
         this.splitAt = splitAt
+        this.consumeAt = consumeAt
         this.shape = shape
         this.location = location
         this.velocity = p.createVector(0, 0)
         this.rotation = 0
+        this.age = 0
     }
 
     public mitose(): Bacterium {
@@ -35,11 +41,16 @@ export class Bacterium {
         return new Bacterium(
             this.p,
             this.motility,
-            this.metabolicPathways,
+            this.metabolicPathway,
             this.splitAt,
+            this.consumeAt,
             this.shape,
             this.p.createVector(this.location.x + step, this.location.y + step),
             )
+    }
+
+    public consume() {
+        return this.age % this.consumeAt == 0
     }
 
     public updateVelocity() {
@@ -98,15 +109,17 @@ export class Bacterium {
     }
 
     public move() {
-        let randomJitter = (Math.random() - 0.5)
+        let randomJitter = (Math.random() - 0.5) * this.motility
         this.location.x += this.velocity.x + randomJitter
         this.location.y += this.velocity.y + randomJitter
         this._rotate()
     }
 
     public draw() {
+        this.age += 1
         this.p.push()
-        this.p.fill(200, 200, 200)
+        this.p.noStroke()
+        this.p.fill(coolPalette.midnightBlue)
         this.p.translate(this.location.x, this.location.y)
         this.p.rotate(this.rotation)
         this.shape.draw()
@@ -116,9 +129,19 @@ export class Bacterium {
 
 export const ecoli = (p: p5, location: p5.Vector) => new Bacterium(
     p,
-    10,
-    [{ input: ['Glucose', 'Oxygen'], output: ['CarbonDiOxide', 'Water'] }],
+    0.9,
+    {
+        input: {
+            'Glucose': 1,
+            'Oxygen': 6,
+        },
+        output: {
+            'CO2': 6,
+            'Water': 6,
+        }
+    },
     300,
+    200,
     new Oval(p, p.createVector(7, 5)),
     location,
 )

@@ -1,8 +1,11 @@
-type Nutrient = 'Glucose' | 'CarbonDiOxide' | 'Oxygen' | 'Water'
+type Nutrient = 'Glucose' | 'CO2' | 'Oxygen' | 'Water'
+
+
+type Nutrients = Partial<Record<Nutrient, number>>
 
 type MetabolicPathway = {
-    input: Nutrient[]
-    output: Nutrient[]
+    input: Nutrients
+    output: Nutrients
 }
 
 type ExtremePoints = {
