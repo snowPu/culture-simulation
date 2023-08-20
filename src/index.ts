@@ -1,7 +1,9 @@
 import * as p5 from 'p5';
 import './styles.scss';
-import { Bacterium, ecoli } from './types/Bacterium';
+import { Ecoli } from './types/bacteria/Ecoli';
+import { Bacterium } from './types/bacteria/Bacterium';
 import { Environment } from './types/Environment';
+import { Selongatus } from './types/bacteria/Selongatus';
 
 const canvasSize = [800, 800]
 
@@ -11,16 +13,18 @@ export const sketch = (p: p5) => {
     let nutrients: Nutrients = {
 		'Glucose': 200,
 		'Oxygen': 800,
-		'Water': 50
+		'Water': 50,
+		'CO2': 50,
 	}
     
     p.setup = () => {
         p.createCanvas(canvasSize[0], canvasSize[1]);
-        bacteria.push(ecoli(p, p.createVector(p.width / 2, p.height / 2)))
+        bacteria.push(new Ecoli(p, p.createVector(p.width / 2, p.height / 2)))
+        bacteria.push(new Selongatus(p, p.createVector(p.width / 2.5, p.height / 2.5)))
         environment = new Environment(
-          p,
-          bacteria,
-          nutrients,
+          	p,
+          	bacteria,
+          	nutrients,
         )
 		environment.drawStats()
     }
