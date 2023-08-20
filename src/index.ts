@@ -14,7 +14,7 @@ export const sketch = (p: p5) => {
 		'Glucose': 200,
 		'Oxygen': 800,
 		'Water': 50,
-    'CO2': 50,
+		'CO2': 50,
 	}
     
     p.setup = () => {
@@ -22,9 +22,9 @@ export const sketch = (p: p5) => {
         bacteria.push(new Ecoli(p, p.createVector(p.width / 2, p.height / 2)))
         bacteria.push(new Selongatus(p, p.createVector(p.width / 2.5, p.height / 2.5)))
         environment = new Environment(
-          p,
-          bacteria,
-          nutrients,
+          	p,
+          	bacteria,
+          	nutrients,
         )
 		environment.drawStats()
     }
