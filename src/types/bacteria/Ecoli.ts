@@ -28,4 +28,11 @@ export class Ecoli extends Bacterium {
             3000,
         )
     }
+
+    public mitose(): Ecoli {
+        return new Ecoli(
+            this.p,
+            this._veryCloseLocation(),
+        );
+    }
 }

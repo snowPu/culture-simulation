@@ -4,8 +4,8 @@ import { Ecoli } from './types/bacteria/Ecoli';
 import { Bacterium } from './types/bacteria/Bacterium';
 import { Environment } from './types/Environment';
 import { Selongatus } from './types/bacteria/Selongatus';
+import { CANVAS_HEIGHT, CANVAS_WIDTH } from './constants/geometry';
 
-const canvasSize = [800, 800]
 
 export const sketch = (p: p5) => {
     let bacteria: Bacterium[] = []
@@ -18,7 +18,7 @@ export const sketch = (p: p5) => {
 	}
     
     p.setup = () => {
-        p.createCanvas(canvasSize[0], canvasSize[1]);
+        p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
         bacteria.push(new Ecoli(p, p.createVector(p.width / 2, p.height / 2)))
         bacteria.push(new Selongatus(p, p.createVector(p.width / 2.5, p.height / 2.5)))
         environment = new Environment(
