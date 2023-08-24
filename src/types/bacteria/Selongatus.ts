@@ -29,4 +29,11 @@ export class Selongatus extends Bacterium {
             4000,
         )
     }
+
+    public mitose(): Selongatus {
+        return new Selongatus(
+            this.p,
+            this._veryCloseLocation(),
+        );
+    }
 }

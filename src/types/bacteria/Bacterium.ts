@@ -1,6 +1,7 @@
 import * as p5 from 'p5';
-import { Oval, Shape } from '../Shape';
-import { coolPalette } from '../../constants/colors';
+import { Shape } from '../Shape';
+import { step } from '../util';
+
 
 export class Bacterium {
     p: p5
@@ -43,7 +44,6 @@ export class Bacterium {
     }
 
     public mitose(): Bacterium {
-        let step = (Math.random() - 0.5) * 0.5
         return new Bacterium(
             this.p,
             this.motility,
@@ -51,10 +51,10 @@ export class Bacterium {
             this.splitAt,
             this.consumeAt,
             this.shape,
-            this.p.createVector(this.location.x + step, this.location.y + step),
+            this._veryCloseLocation(),
             this.color,
             this.lifeExpectancy,
-            )
+        )
     }
 
     public consume() {
@@ -114,6 +114,10 @@ export class Bacterium {
 
     private _rotate() {
         this.rotation += this.p.random(-0.02, 0.02)
+    }
+
+    protected _veryCloseLocation() {
+        return this.p.createVector(this.location.x + step(), this.location.y + step())
     }
 
     public move() {
