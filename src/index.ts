@@ -31,6 +31,7 @@ export const sketch = (p: p5) => {
 
     p.draw = () => {
 		environment.draw()
+    environment.updateChart()
     }
 }
 

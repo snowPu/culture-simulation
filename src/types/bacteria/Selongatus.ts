@@ -4,6 +4,8 @@ import { Bacterium } from "./Bacterium";
 import { coolPalette } from "../../constants/colors";
 
 export class Selongatus extends Bacterium {
+    static color: string = coolPalette.mint
+
     constructor(
         p: p5, location: p5.Vector
     ) {
@@ -25,7 +27,6 @@ export class Selongatus extends Bacterium {
             300,
             new Oval(p, p.createVector(7, 5)),
             location,
-            p.color(coolPalette.mint),
             4000,
         )
     }

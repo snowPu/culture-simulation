@@ -1,7 +1,7 @@
 .stats {
     position: fixed;
-    left: 900px;
-    top: 50px;
+    left: 50px;
+    top: 900px;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 20px;
@@ -25,4 +25,12 @@
     .count {
         font-size: 40pt;
     }
+}
+
+#chart {
+    position: fixed;
+    left: 1400px;
+    top: 50px;
+    width: 800px !important;
+    height: 400px !important;
 }
