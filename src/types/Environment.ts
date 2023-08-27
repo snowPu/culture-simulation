@@ -1,6 +1,7 @@
 import * as p5 from 'p5';
 import { Bacterium } from './bacteria/Bacterium';
 import { coolPalette, statsColors } from '../constants/colors';
+import { PlotlyManager } from './PlotlyManager';
 
 
 class NutrientLowException extends Error {
@@ -14,6 +15,7 @@ export class Environment {
     p: p5
     bacteria: Bacterium[]
     nutrients: Nutrients
+    plotlyManager: PlotlyManager
 
     constructor(
         p: p5,
@@ -23,6 +25,7 @@ export class Environment {
         this.p = p
         this.bacteria = bacteria
         this.nutrients = nutrients
+        this.plotlyManager = new PlotlyManager('chart', this.getBacteriaTypes())
     }
 
     addBacteria(bacteria: Bacterium[]) {
@@ -33,6 +36,12 @@ export class Environment {
     removeBacterium(idx: number) {
         this.bacteria.splice(idx, 1);
         this.drawStats()
+    }
+
+    getBacteriaTypes(): typeof Bacterium[] {
+        return Array.from(new Set(
+            this.bacteria.map(bacterium => <typeof Bacterium>bacterium.constructor)
+        ))
     }
 
     addNutrient(nutrient: Nutrient, count: number) {
@@ -60,6 +69,19 @@ export class Environment {
         Object.keys(this.nutrients).forEach((nutrient: Nutrient) => {
             setStatsCell(nutrient, this.nutrients[nutrient])
         })
+    }
+
+    updateChart() {
+        if (this.p.frameCount % 60 === 0) {
+            this.getBacteriaTypes().forEach(
+                (bacteriumType) => this.plotlyManager.pushNewValue(
+                    bacteriumType,
+                    this.bacteria.filter(
+                        bacterium => bacterium instanceof bacteriumType
+                    ).length,
+                )
+            )
+        }
     }
 
     draw() {

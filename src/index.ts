@@ -18,7 +18,8 @@ export const sketch = (p: p5) => {
 	}
     
     p.setup = () => {
-        p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+        const canvas = p.createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
+        canvas.parent('canvas-container');
         bacteria.push(new Ecoli(p, p.createVector(p.width / 2, p.height / 2)))
         bacteria.push(new Selongatus(p, p.createVector(p.width / 2.5, p.height / 2.5)))
         environment = new Environment(
@@ -31,6 +32,7 @@ export const sketch = (p: p5) => {
 
     p.draw = () => {
 		environment.draw()
+    environment.updateChart()
     }
 }
 

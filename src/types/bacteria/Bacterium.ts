@@ -1,6 +1,6 @@
 import * as p5 from 'p5';
 import { Shape } from '../Shape';
-import { step } from '../util';
+import { step } from '../../util';
 
 
 export class Bacterium {
@@ -14,9 +14,10 @@ export class Bacterium {
     location: p5.Vector
     velocity: p5.Vector
     rotation: number
-    color: p5.Color
     age: number
     lifeExpectancy: number
+
+    static color: string = '#000000'
 
     constructor(
         p: p5,
@@ -26,7 +27,6 @@ export class Bacterium {
         consumeAt: number,
         shape: Shape,
         location: p5.Vector,
-        color: p5.Color,
         lifeExpectancy: number
     ) {
         this.p = p
@@ -38,7 +38,6 @@ export class Bacterium {
         this.location = location
         this.velocity = p.createVector(0, 0)
         this.rotation = 0
-        this.color = color
         this.age = 0
         this.lifeExpectancy = lifeExpectancy
     }
@@ -52,7 +51,6 @@ export class Bacterium {
             this.consumeAt,
             this.shape,
             this._veryCloseLocation(),
-            this.color,
             this.lifeExpectancy,
         )
     }
@@ -131,8 +129,10 @@ export class Bacterium {
         this.age += 1
         this.p.push()
         this.p.noStroke()
-        this.color.setAlpha((1.0 - this.age / this.lifeExpectancy) * 255)
-        this.p.fill(this.color)
+        const type = <typeof Bacterium>this.constructor
+        const color = this.p.color(type.color)
+        color.setAlpha((1.0 - this.age / this.lifeExpectancy) * 255)
+        this.p.fill(color)
         this.p.translate(this.location.x, this.location.y)
         this.p.rotate(this.rotation)
         this.shape.draw()
