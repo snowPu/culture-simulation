@@ -15,7 +15,6 @@ export class Environment {
     p: p5
     bacteria: Bacterium[]
     nutrients: Nutrients
-    // chart: Chart
     plotlyManager: PlotlyManager
 
     constructor(
@@ -74,15 +73,6 @@ export class Environment {
 
     updateChart() {
         if (this.p.frameCount % 60 === 0) {
-            // this.getBacteriaTypes().forEach(
-            //     (bacteriumType) => pushChartData(
-            //         this.chart,
-            //         bacteriumType,
-            //         this.bacteria.filter(
-            //             bacterium => bacterium instanceof bacteriumType
-            //         ).length,
-            //     )
-            // )
             this.getBacteriaTypes().forEach(
                 (bacteriumType) => this.plotlyManager.pushNewValue(
                     bacteriumType,
