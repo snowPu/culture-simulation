@@ -1,6 +1,7 @@
 import * as p5 from 'p5';
 import { Shape } from '../Shape';
 import { step } from '../../util';
+import { MetabolicPathway } from '../types';
 
 
 export class Bacterium {

@@ -1,1 +1,5 @@
 export const bacteriaCountAllTimeToggle = <HTMLInputElement> document.getElementById('toggleSwitch')
+export const bacteriaShopContainer = document.getElementById('bacteria-shop')
+export const nutrientsShopContainer = document.getElementById('nutrients-shop')
+export const shopContainer = document.getElementById('shop')
+export const statsContainer = document.getElementById('stats-container')

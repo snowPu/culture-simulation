@@ -1,3 +1,5 @@
+import { ExtremePoints } from "./types";
+
 export interface Shape {
     p: p5
     /*

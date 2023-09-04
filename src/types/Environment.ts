@@ -2,6 +2,7 @@ import * as p5 from 'p5';
 import { Bacterium } from './bacteria/Bacterium';
 import { coolPalette, statsColors } from '../constants/colors';
 import { PlotlyManager } from './PlotlyManager';
+import { BacteriaName, BacteriaRecord, Nutrient, NutrientsRecord, bacteriaTypes } from './types';
 
 
 class NutrientLowException extends Error {
@@ -14,15 +15,25 @@ class NutrientLowException extends Error {
 export class Environment {
     p: p5
     bacteria: Bacterium[]
-    nutrients: Nutrients
+    nutrients: NutrientsRecord
     plotlyManager: PlotlyManager
 
     constructor(
         p: p5,
-        bacteria: Bacterium[],
-        nutrients: Nutrients,
+        bacteriaRecord: BacteriaRecord,
+        nutrients: NutrientsRecord
     ) {
         this.p = p
+        this.bacteria = []
+
+        const bacteria: Bacterium[] = Object.entries(bacteriaRecord).flatMap(([bacterium, count]) =>
+            Array.from({ length: count }, () => (
+                    new bacteriaTypes[bacterium as BacteriaName](
+                        this.p, p.createVector(p.width / 2, p.height / 2)
+                    )
+                )
+            )
+        )
         this.bacteria = bacteria
         this.nutrients = nutrients
         this.plotlyManager = new PlotlyManager('chart', this.getBacteriaTypes())
