@@ -8,6 +8,11 @@ html {
     gap: 30px;
     flex: 0 0 100%;
 
+    .environment-configurator {
+      flex: 1;
+      height: 100%;
+      margin: 20px 0 10px 0;
+    }
     .stats-container {
         flex: 1;
         display: flex;
@@ -123,4 +128,167 @@ html {
 
   .toggle-text {
     padding-left: 6px;
+  }
+
+  .card {
+    width: 80%;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding: 20px;
+    margin-top: 40px;
+  }
+  .circle-icon {
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    width: 30px;
+    height: 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 6px;
+
+    img {
+      width: 100%; /* Make sure the image fits the container */
+      height: auto; /* Maintain aspect ratio */
+      display: block;
+    }
+  }
+
+  .shop {
+    margin-top: 20px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 20px;
+  
+    .shop-item {
+      display: flex;
+      flex-direction: row;
+      width: 150px;
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      
+      .item-description {
+        flex: 3;
+        display: grid;
+        padding: 10px;
+        grid-gap: 4px;
+
+        .item-image {
+          width: 100%;
+        }
+        .itemLabel {
+          width: 100%;
+        }
+      }
+
+      .number-container {
+        display: grid;
+        justify-content: space-between;
+
+        button {
+          width: 40px;
+          border-radius: 0;
+          border: none;
+          text-align: center;
+          cursor: pointer;
+          
+        }
+        .item-count {
+          display: flex;
+          min-height: 20px;
+          justify-content: center;
+          align-items: center;
+          vertical-align: middle;
+          width: -webkit-fill-available;
+          text-align: center;
+
+        }
+      }
+      
+      
+    }
+  }
+
+  .bacteria-card {
+    .circle-icon {
+      background: linear-gradient(
+        45deg,
+        rgba(30, 218, 227, 0.5) 0%,
+        rgba(74, 247, 168, 0.5) 100%,
+      );
+    }
+    .number-container {
+      button {
+        background: linear-gradient(
+          45deg,
+          rgba(30, 218, 227, 0.5) 0%,
+          rgba(74, 247, 168, 0.5) 100%,
+        );
+        &:hover {
+          background: linear-gradient(
+            45deg,
+            rgba(30, 218, 227, 0.9) 0%,
+            rgba(74, 247, 168, 0.9) 100%,
+          );
+        }
+      }
+    }
+  }
+
+  .nutrients-card {
+    .circle-icon {
+      background: linear-gradient(
+        45deg,
+        rgba(212, 92, 7, 0.5) 0%,
+        rgba(203, 165, 38, 0.5) 100%,
+      );
+    }
+    .number-container {
+      button {
+        background: linear-gradient(
+          45deg,
+          rgba(212, 92, 7, 0.5) 0%,
+          rgba(203, 165, 38, 0.5) 100%,
+        );
+        &:hover {
+          background: linear-gradient(
+            45deg,
+            rgba(212, 92, 7, 0.9) 0%,
+            rgba(203, 165, 38, 0.9) 100%,
+          );
+        }
+      }
+    }
+  }
+
+  .shop-buy {
+    padding: 10px;
+    font-size: 15pt;
+    margin: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    align-self: center;
+    border-width: 0;
+    background: linear-gradient(
+      45deg,
+      rgba(30, 218, 227, 0.5) 0%,
+      rgba(74, 247, 168, 0.5) 100%,
+    );
+    &:hover {
+      background: linear-gradient(
+        45deg,
+        rgba(30, 218, 227, 0.9) 0%,
+        rgba(74, 247, 168, 0.9) 100%,
+      );
+    }
   }

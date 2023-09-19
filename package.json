@@ -5,7 +5,8 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack serve --open"
+    "start": "webpack serve --open",
+    "build": "webpack"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,9 @@
   "homepage": "https://github.com/snowPu/culture-simulation#readme",
   "devDependencies": {
     "@types/p5": "^1.6.2",
+    "copy-webpack-plugin": "^11.0.0",
     "css-loader": "^6.8.1",
+    "html-loader": "^4.2.0",
     "sass": "^1.66.0",
     "sass-loader": "^13.3.2",
     "style-loader": "^3.3.3",

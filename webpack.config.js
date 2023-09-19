@@ -1,8 +1,22 @@
 const path = require('path');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     mode: "development",
     entry: './src/index.ts',
+    plugins: [
+        // ... other plugins ...
+    
+        // Copy assets to the output directory
+        new CopyWebpackPlugin({
+          patterns: [
+            {
+              from: path.resolve(__dirname, 'src/assets'),
+              to: 'assets',
+            },
+          ],
+        }),
+    ],
     module: {
         rules: [
             {
@@ -18,6 +32,11 @@ module.exports = {
                     'sass-loader',  // Compile Sass to CSS
                 ],
             },
+            // Rule for handling HTML files
+            {
+                test: /\.html$/i,
+                use: 'html-loader',
+            },
         ],
     },
     resolve: {
@@ -30,6 +49,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
     },
     devServer: {
-        static: './dist',
+        static: {
+            directory: path.resolve(__dirname, 'src'), // Serve files from the src directory
+        },
     }
 };
