@@ -28,6 +28,7 @@ export class Selongatus extends Bacterium {
             new Oval(p, p.createVector(7, 5)),
             location,
             4000,
+            600,
         )
     }
 

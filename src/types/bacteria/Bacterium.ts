@@ -17,6 +17,9 @@ export class Bacterium {
     rotation: number
     age: number
     lifeExpectancy: number
+    starvationLimit: number
+    starvingTime: number
+    starving: boolean
 
     static color: string = '#000000'
 
@@ -28,7 +31,8 @@ export class Bacterium {
         consumeAt: number,
         shape: Shape,
         location: p5.Vector,
-        lifeExpectancy: number
+        lifeExpectancy: number,
+        starvationLimit: number
     ) {
         this.p = p
         this.motility = motility
@@ -41,6 +45,9 @@ export class Bacterium {
         this.rotation = 0
         this.age = 0
         this.lifeExpectancy = lifeExpectancy
+        this.starvationLimit = starvationLimit
+        this.starvingTime = 0
+        this.starving = true
     }
 
     public mitose(): Bacterium {
@@ -53,11 +60,21 @@ export class Bacterium {
             this.shape,
             this._veryCloseLocation(),
             this.lifeExpectancy,
+            this.starvationLimit,
         )
     }
 
     public consume() {
         return this.age % this.consumeAt == 0
+    }
+
+    public starve() {
+        this.starving = true
+    }
+    
+    public unstarve() {
+        this.starving = false
+        this.starvingTime = 0
     }
 
     public updateVelocity() {
@@ -138,5 +155,8 @@ export class Bacterium {
         this.p.rotate(this.rotation)
         this.shape.draw()
         this.p.pop()
+        if (this.starving) {
+            this.starvingTime += 1
+        }
     }
 }
