@@ -75,6 +75,14 @@ export class Environment {
         this.drawStats()
     }
 
+    hasNutrients(nutrients: Partial<NutrientsRecord>) {
+        for (const nutrient in nutrients) {
+            if (!(nutrient in this.nutrients)) return false
+            if (this.nutrients[nutrient as Nutrient] < nutrients[nutrient as Nutrient]) return false
+        }
+        return true
+    }
+
     drawStats() {
         setStatsCell('Bacteria', this.bacteria.length)
         Object.keys(this.nutrients).forEach((nutrient: Nutrient) => {
@@ -114,33 +122,40 @@ export class Environment {
         idx = 0
         for (const bacterium of this.bacteria) {
             if (bacterium.consume()) {
-                try {
+                if (this.hasNutrients(bacterium.metabolicPathway.input)) {
                     const input = bacterium.metabolicPathway.input
+                    if (bacterium.starving) {
+                        bacterium.unstarve()
+                    }
                     Object.keys(input).forEach(
                         (nutrient: Nutrient) => {
                             this.removeNutrient(nutrient, input[nutrient])
                         }
                     )
-                    const output = bacterium.metabolicPathway.output
+                    const output = bacterium.metabolicPathway.output 
                     Object.keys(output).forEach(
                         (nutrient: Nutrient) => {
                             this.addNutrient(nutrient, output[nutrient])
                         }
                     )
-                } catch(error) {
-                    if (error instanceof NutrientLowException) {
-                        console.log(error)
-                        indices.push(idx)
-                    }
+                } else {
+                    bacterium.starve()
                 }
+            }
+        }
+
+        for (const bacterium of this.bacteria) {
+            if (bacterium.starvingTime >= bacterium.starvationLimit) {
+                indices.push(idx)
             }
             idx += 1
         }
+        
         indices.reverse().forEach(index => this.removeBacterium(index))
         if (this.bacteria.length < 500) {
             const newBacteria: Bacterium[] = []
             for (const bacterium of this.bacteria) {
-              if (this.p.frameCount % bacterium.splitAt == 0 ) {
+              if (this.p.frameCount % bacterium.splitAt == 0 && !bacterium.starving ) {
                 newBacteria.push(bacterium.mitose())
               }
             }
