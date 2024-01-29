@@ -27,6 +27,7 @@ export class Ecoli extends Bacterium {
             new Oval(p, p.createVector(7, 5)),
             location,
             3000,
+            500,
         )
     }
 
